@@ -3,37 +3,73 @@ import "./App.sass";
 import {SearchBar} from "../SearchBar/SearchBar"
 import SearchResults from "../SearchResults/SearchResults"
 import PlayList from "../PlayList/PlayList"
+import Sportify from '../../util/Spotify';
 
 export default class App extends React.Component{
   constructor(props){
     super(props);
     this.state = {
-      searchResults: [
-        {name:'name1',artist: 'artist1', album: 'album1', id:'id1'},
-        {name:'name2',artist: 'artist1', album: 'album2', id:'id2'},
-        {name:'name3',artist: 'artist1', album: 'album3', id:'id3'},
-        {name:'name3',artist: 'artist1', album: 'album3', id:'id7'}
-
-      ],
+      searchResults: [],
       playlistName: 'myPlayList',
-      playlistTracks:[
-        {name:'name3',artist: 'artist1', album: 'album4', id:'id4'},
-        {name:'name4',artist: 'artist1', album: 'album5', id:'id5'},
-        {name:'name5',artist: 'artist1', album: 'album6', id:'id6'}
-      ]
+      playlistTracks:[]
     }
   }
+
+  // Use the track’s id property to check if the current song is in the playlistTracks state.
+  // If the id is new, add the song to the end of the playlist.
+  // Set the new state of the playlist
+  addTrack = (track) =>{
+    let tracks = this.state.playlistTracks;
+    if(tracks.find(saveTrack => saveTrack.id === track.id)){
+      return;
+    }
+    else{
+      tracks.push(track);
+      this.setState({playlistTracks: tracks});
+    }
+  }
+  
+  removeTrack = (track) => {
+    let tracks = this.state.playlistTracks;
+    tracks = tracks.filter(current => current.id !== track.id);
+    this.setState({playlistTracks: tracks});
+  }
+
+  updatePlaylistName = (name) => {
+    this.setState({playlistName: name});
+  }
+
+  savePlaylist = () =>{
+    alert('success!');
+    const trackUris = this.state.playlistTracks.map(track => track.uri);
+    Sportify.savePlayList(this.state.playlistName,trackUris).then(()=>{
+      this.setState({
+        playlistName: 'New PlayList',
+        playlistTracks: []
+      })
+    })
+  }
+
+  search = (term) =>{
+    Sportify.search(term).then(searchResults => {
+      this.setState({searchResults : searchResults});
+    })
+  }
+
   render(){
     document.title = 'Jamming'
     return (
       <div>
         <h1>Ja<span className="highlight">mmm</span>ing</h1>
         <div className="App">
-          <SearchBar />
+          <SearchBar onSearch={this.search}/>
           <div className="App-playlist">
-          <SearchResults searchResults={this.state.searchResults}/>
+          <SearchResults searchResults={this.state.searchResults} onAdd={this.addTrack}/>
           <PlayList playlistName={this.state.playlistName}
-                    playlistTracks={this.state.playlistTracks}/>
+                    playlistTracks={this.state.playlistTracks}
+                    onNameChange={this.updatePlaylistName}
+                    onSave={this.savePlaylist}
+                    onRemove={this.removeTrack}/>
           </div>
         </div>
       </div>
@@ -41,4 +77,4 @@ export default class App extends React.Component{
   }
 }
 
-
+// https://open.spotify.com/track/0tSV3MPn8u8GlgQyraIFQ9?si=52facc58d9b44f63
