@@ -1,0 +1,21 @@
+{
+  "files": {
+    "main.css": "/jamming/static/css/main.71ca2d82.chunk.css",
+    "main.js": "/jamming/static/js/main.f8de6f4c.chunk.js",
+    "main.js.map": "/jamming/static/js/main.f8de6f4c.chunk.js.map",
+    "runtime-main.js": "/jamming/static/js/runtime-main.7ec36fc6.js",
+    "runtime-main.js.map": "/jamming/static/js/runtime-main.7ec36fc6.js.map",
+    "static/js/2.ed4158cf.chunk.js": "/jamming/static/js/2.ed4158cf.chunk.js",
+    "static/js/2.ed4158cf.chunk.js.map": "/jamming/static/js/2.ed4158cf.chunk.js.map",
+    "index.html": "/jamming/index.html",
+    "static/css/main.71ca2d82.chunk.css.map": "/jamming/static/css/main.71ca2d82.chunk.css.map",
+    "static/js/2.ed4158cf.chunk.js.LICENSE.txt": "/jamming/static/js/2.ed4158cf.chunk.js.LICENSE.txt",
+    "static/media/App.sass": "/jamming/static/media/bg_photo.a0687f3f.jpg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.7ec36fc6.js",
+    "static/js/2.ed4158cf.chunk.js",
+    "static/css/main.71ca2d82.chunk.css",
+    "static/js/main.f8de6f4c.chunk.js"
+  ]
+}
